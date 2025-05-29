@@ -9,9 +9,11 @@ services:
     networks:
       - inception
     restart: unless-stopped
-  wordpress:
-    build:
-      context: ./requirements/
+    ports:
+      - "3306:3306"
+  # wordpress:
+  #   build:
+  #     context: ./requirements/
 
 volumes:
   mariadb_data:

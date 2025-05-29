@@ -8,4 +8,7 @@ RUN apt-get update && \
 COPY ./tools/init.sh /usr/local/bin/init.sh
 COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 
+RUN chmod +x /usr/local/bin/init.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 ENTRYPOINT ["sh", "/usr/local/bin/entrypoint.sh"]
