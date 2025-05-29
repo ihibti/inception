@@ -4,10 +4,10 @@ set -e
 echo "🔧 Starting MariaDB to initialize database..."
 
 # Start MySQL daemon in the background
-mysqld_safe --datadir=/var/lib/mysql &
+mysqld_safe --datadir=/var/lib/mysql #&
 
 # Wait for the server to start
-sleep 5
+#sleep 5
 
 echo "📦 Creating database and user..."
 mysql -u root <<-EOSQL
