@@ -1,27 +1,47 @@
 services:
   mariadb:
-    build:
-      context: ./requirements/mariadb
+    build: ./requirements/mariadb
+    container_name: mariadb
+    restart: always
     env_file:
       - .env
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
       - inception
-    restart: unless-stopped
+    healthcheck:
+      test: ["CMD","mysql", "-u","root","-e","SHOW DATABASES;"]
+      interval: 10s
+      timeout: 30s
+      retries: 10
+      start_period: 30s
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      mariadb:
+        condition: service_healthy
+        
+    networks:
+      - inception
     ports:
-      - "3306:3306"
-  # wordpress:
-  #   build:
-  #     context: ./requirements/
+      - "9000:9000"  # si tu veux exposer php-fpm pour test (facultatif)
 
 volumes:
   mariadb_data:
     driver: local
     driver_opts:
-      type: none
-      device: "~/data/db"
       o: bind
+      type: none 
+      device: ~/data/db
+    name: mariadb_data
+  wordpress_data:
+    name: wordpress_data
 
 networks:
   inception:

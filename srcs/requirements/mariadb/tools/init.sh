@@ -3,11 +3,30 @@ set -e
 
 echo "🔧 Starting MariaDB to initialize database..."
 
-# Start MySQL daemon in the background
+# Lancer le daemon MySQL en arrière-plan
 mysqld_safe --datadir=/var/lib/mysql &
 
-# Wait for the server to start
-sleep 5
+sleep 10
+
+echo "⏳ Waiting for MySQL to be ready for queries..."
+
+# Attente active : ping toutes les secondes, jusqu'à 30 secondes max
+# for i in {1..30}; do
+#     if mysqladmin ping --silent; then
+#         echo "✅ MySQL is ready."
+#         break
+#     fi
+#     echo "⏳ mysqld not ready yet... (${i}/30)"
+#     sleep 1
+# done
+
+# Test de connexion explicite (affiche les bases ou échoue)
+echo "🔍 Testing connection with root..."
+if ! mysql -u root -e "SHOW DATABASES;"; then
+    echo "❌ MySQL not responding — dumping logs:"
+    cat /var/log/mysql/error.log || true
+    exit 1
+fi
 
 echo "📦 Creating database and user..."
 mysql -u root <<-EOSQL
@@ -18,6 +37,4 @@ mysql -u root <<-EOSQL
 EOSQL
 
 echo "🧼 Shutting down MariaDB after init..."
-#echo "[mysqld]
-#bind-address=0.0.0.0" > /etc/mysql/mariadb.conf.d/50-server.cnf
 mysqladmin -u root shutdown
