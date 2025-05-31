@@ -6,3 +6,6 @@ down:
 
 build: down
 	docker compose build
+
+purge:
+	sudo rm -rf /home/ihibti/data/db/*

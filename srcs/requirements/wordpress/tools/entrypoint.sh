@@ -33,4 +33,4 @@ else
 fi
 
 echo "🚀 Starting php-fpm..."
-exec php-fpm -F
+exec php-fpm7.4 -F

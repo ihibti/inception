@@ -11,8 +11,9 @@ COPY ./tools/init.sh /usr/local/bin/init.sh
 COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Rendre les scripts exécutables
+RUN chmod +x /usr/local/bin/init.sh
 RUN chmod +x /usr/local/bin/init.sh /usr/local/bin/entrypoint.sh
 
 # Point d'entrée
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["sh","/usr/local/bin/entrypoint.sh"]
 

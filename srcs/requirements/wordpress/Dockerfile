@@ -2,6 +2,7 @@ FROM debian:bullseye
 
 # Install dependencies: PHP, extensions, WP-CLI, and tools
 RUN apt-get update && apt-get install -y \
+    php\
     php-fpm \
     php-mysql \
     curl \
@@ -20,6 +21,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 # Copy config and setup files
 COPY ./tools/entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
+COPY conf/wordpress.pool.conf /etc/php/7.4/fpm/pool.d/
 
 # Set working directory
 WORKDIR /var/www/html

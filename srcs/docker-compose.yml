@@ -9,12 +9,13 @@ services:
       - mariadb_data:/var/lib/mysql
     networks:
       - inception
+    ports:
+      - "3306:3306"
     healthcheck:
-      test: ["CMD","mysql", "-u","root","-e","SHOW DATABASES;"]
+      test: mysql -u root -h localhost -e "SHOW DATABASES;" | grep "wordpress" 
       interval: 10s
       timeout: 30s
       retries: 10
-      start_period: 30s
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
