@@ -2,7 +2,7 @@
 set -e
 
 # If database dir is empty → first time container runs
-if [ ! -f "/var/lib/mysql/mysql/mysql_upgrade_info" ]; then
+if [ ! -f "/var/lib/mysql/mysql_upgrade_info" ]; then
     echo "📁 No DB found — running init script..."
     /usr/local/bin/init.sh
 else

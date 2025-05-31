@@ -9,8 +9,6 @@ services:
       - mariadb_data:/var/lib/mysql
     networks:
       - inception
-    ports:
-      - "3306:3306"
     healthcheck:
       test: mysql -u root -h localhost -e "SHOW DATABASES;" | grep "wordpress" 
       interval: 10s
@@ -30,8 +28,18 @@ services:
         
     networks:
       - inception
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    restart: always
+    env_file: 
+      - .env
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception
     ports:
-      - "9000:9000"  # si tu veux exposer php-fpm pour test (facultatif)
+      - "80:80"
 
 volumes:
   mariadb_data:

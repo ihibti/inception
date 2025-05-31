@@ -3,6 +3,7 @@ FROM debian:bullseye
 # Install dependencies: PHP, extensions, WP-CLI, and tools
 RUN apt-get update && apt-get install -y \
     php\
+    sudo\
     php-fpm \
     php-mysql \
     curl \
@@ -25,6 +26,16 @@ COPY conf/wordpress.pool.conf /etc/php/7.4/fpm/pool.d/
 
 # Set working directory
 WORKDIR /var/www/html
+
+RUN mkdir -p /run/php
+
+RUN touch /run/php/php7.4-fpm.sock
+
+RUN groupadd wordpress
+
+RUN useradd -m -g  wordpress wordpress
+
+RUN usermod -aG www-data wordpress
 
 # Run the custom entrypoint script
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
