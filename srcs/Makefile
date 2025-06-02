@@ -7,5 +7,6 @@ down:
 build: down
 	docker compose build
 
-purge:
+purge:down
 	sudo rm -rf /home/ihibti/data/db/*
+	docker system prune -af

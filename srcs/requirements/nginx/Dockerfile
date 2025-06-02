@@ -5,5 +5,12 @@ RUN apt-get update && apt-get install -y \
 
 COPY conf/ihibti.42.fr.conf /etc/nginx/sites-enabled
 
-ENTRYPOINT ["nginx","-g","daemon off;" ]
+COPY tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 
+COPY tools/init.sh /usr/local/bin/init.sh
+
+RUN chmod +x /usr/local/bin/entrypoint.sh 
+
+RUN chmod +x /usr/local/bin/init.sh
+
+ENTRYPOINT ["sh","/usr/local/bin/entrypoint.sh"]

@@ -37,5 +37,6 @@ RUN useradd -m -g  wordpress wordpress
 
 RUN usermod -aG www-data wordpress
 
+
 # Run the custom entrypoint script
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
