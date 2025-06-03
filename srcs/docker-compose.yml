@@ -40,6 +40,14 @@ services:
       - inception
     ports:
       - "443:443"
+  
+  adminer:
+    build: ./requirements/bonus/adminer
+    container_name: adminer
+    restart: always
+    networks:
+      - inception
+
 
 volumes:
   mariadb_data:
