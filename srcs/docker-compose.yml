@@ -47,17 +47,17 @@ services:
     restart: always
     networks:
       - inception
-  ftp:
-    build: ./requirements/bonus/ftp
-    container_name: ftp
-    restart: always
-    networks:
-      - inception
-    volumes:
-      - wordpress_data:/home/ftpuser/ftp
-    ports:
-      - "21:21"
-      - "30000-30009:30000-30009"
+  # ftp:
+  #   build: ./requirements/bonus/ftp
+  #   container_name: ftp
+  #   restart: always
+  #   networks:
+  #     - inception
+  #   volumes:
+  #     - wordpress_data:/home/ftpuser/ftp
+  #   ports:
+  #     - "21:21"
+  #     - "30000-30009:30000-30009"
 
 
 
