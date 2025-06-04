@@ -71,6 +71,11 @@ volumes:
     name: mariadb_data
   wordpress_data:
     name: wordpress_data
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ~/data/db
 
 networks:
   inception:

@@ -28,7 +28,9 @@ if ! sudo -u wordpress -i -- wp core is-installed --path=/var/www/html/ ; then
         --admin_user="$WP_ADMIN" \
         --admin_password="$WP_ADMIN_PASSWORD" \
         --admin_email="$WP_ADMIN_EMAIL" \
-        --skip-email 
+    sudo -u wordrpress -i -- wp user create --path=/var/www/html/ \
+        $WP_USER $WP_USER_EMAIL --user_pass="$WP_USER_PASS"\
+        
     
 else
     echo "✅ WordPress already installed."
