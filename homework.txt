@@ -1,3 +1,0 @@
-pae/nx
-nested VT-x/amd-v
-group docker
