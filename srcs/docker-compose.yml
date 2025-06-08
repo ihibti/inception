@@ -47,6 +47,7 @@ services:
     restart: always
     networks:
       - inception
+
   # ftp:
   #   build: ./requirements/bonus/ftp
   #   container_name: ftp
@@ -75,7 +76,7 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: ~/data/db
+      device: ~/data/wpvol
 
 networks:
   inception:

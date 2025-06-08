@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+mkdir -p /run/mysqld
+chown -R mysql:mysql /run/mysqld
+
 # If database dir is empty → first time container runs
 if [ ! -d "/var/lib/mysql/wordpress" ]; then
     echo "📁 No DB found — running init script..."
